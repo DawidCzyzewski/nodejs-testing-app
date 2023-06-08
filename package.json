@@ -1,24 +1,18 @@
 {
-  "name": "framework-express",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "simple-express",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www",
+    "start:dev": "nodemon ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DawidCzyzewski/node-framework-express.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/DawidCzyzewski/node-framework-express/issues"
-  },
-  "homepage": "https://github.com/DawidCzyzewski/node-framework-express#readme",
   "dependencies": {
-    "express": "^4.18.2",
-    "mongodb": "4.1"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^16.1.2",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1"
   }
 }
