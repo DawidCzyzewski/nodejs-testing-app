@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 // If I want to use mongoose, I must have:
 const mongoose = require("mongoose");
+// Add this to create JWT
+const jwt = require("jsonwebtoken");
 
 // Connection to base should be in app.js but I will do it here to see whole work with mongoose
 require("dotenv").config();
@@ -75,8 +77,64 @@ const Dog = new mongoose.model("Dog", {
 
 /* GET dogs listing. */
 router.get("/", function (req, res, next) {
-  res.json(dogs);
+  
+  // In payload I shouldn't have ...?
+  const payload = {
+    id: 1,
+    name: "Dawid",
+    year: 1992,
+  };
+
+  // Here I create secret. Of course normally I mustn't write it here, but it is for train
+  const secret = "nodejs8";
+
+  // now I create token. As last argument I can give info about algorithm what I used, now I don't want it:
+  const token = jwt.sign(payload, secret);
+
+  //  I can check my token:
+  const verify = jwt.verify(token, secret);
+
+  // I can also decode token. Here I can put also clear token. It will decode but not check authenticy of token:
+  // const decode = jwt.decode(token);
+  const decode = jwt.decode(
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkRhd2lkIiwieWVhciI6MTk5MiwiaWF0IjoxNjg2NzU3ODcxfQ.GHBzak5tWdVmvopeOcQJoDvOQ73OsLii4nDvv4jBR0Y"
+  );
+
+  // now localhost:3000/dogs will return token
+  res.json({ token, verify, decode });
+
+  // res.json(dogs);
 });
+
+// There is also something like passport-jwt library to use with json. It depends of configure strategy JWT (konspekt)
+// const passport = require('passport');
+// const passportJWT = require('passport-jwt');
+// const User = require('../schemas/user');
+// require('dotenv').config();
+// const secret = process.env.SECRET;
+
+// const ExtractJWT = passportJWT.ExtractJwt;
+// const Strategy = passportJWT.Strategy;
+// const params = {
+//   secretOrKey: secret,
+//   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+// };
+
+// // JWT Strategy
+// passport.use(
+//   new Strategy(params, function (payload, done) {
+//     User.find({ _id: payload.id })
+//       .then(([user]) => {
+//         if (!user) {
+//           return done(new Error('User not found'));
+//         }
+//         return done(null, user);
+//       })
+//       .catch(err => done(err));
+//   }),
+// );
+
+// I can use also passport library. It is something else than passport-jwt
 
 // I should have things like adding dog as POST not GET, but now it would be better to not opening Postman or sth, just getting it in browser by link
 router.get("/add", function (req, res, next) {

@@ -21,7 +21,7 @@ const logger = require("morgan");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 // DODANE DLA MONGOOSE:
-const dogsRouter = require("./routes/dogs")
+const dogsRouter = require("./routes/dogs");
 
 // Później tworzymy egzemplarz aplikacji i ustawiamy wykorzystanie szablonów ejs.
 const app = express();
@@ -46,8 +46,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 // DLA MONGOOSE TWORZĘ NOWĄ ROUTE
-app.use('/dogs', dogsRouter)
-
+app.use("/dogs", dogsRouter);
 
 // Pamiętaj, że porządek podłączanego programu pośredniczącego ma znaczenie. Na końcu aplikacji pojawia się opracowywanie błędów. Najpierw zachodzi opracowywanie nieistniejącej ścieżki czyli klasyczny błąd 404.
 // catch 404 and forward to error handler. Funkcja obsługująca błąd. Jeśli nigdzie nie zostanie zatrzymane to wpadnie tutaj i poniżej jest przechwycenie
