@@ -77,8 +77,7 @@ const Dog = new mongoose.model("Dog", {
 
 /* GET dogs listing. */
 router.get("/", function (req, res, next) {
-  
-  // In payload I shouldn't have ...?
+  // In payload I shouldn't have any info except id becouse it can be hacked
   const payload = {
     id: 1,
     name: "Dawid",
@@ -91,7 +90,7 @@ router.get("/", function (req, res, next) {
   // now I create token. As last argument I can give info about algorithm what I used, now I don't want it:
   const token = jwt.sign(payload, secret);
 
-  //  I can check my token:
+  //  I can check my token: After I send my token, I can verify if it is good when it back from frontend
   const verify = jwt.verify(token, secret);
 
   // I can also decode token. Here I can put also clear token. It will decode but not check authenticy of token:
