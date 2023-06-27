@@ -6,14 +6,16 @@
   </head>
   <body>
     <form action="/login" method="POST">
-
       <label for="email">Email</label>
       <input type="text" name="email" id="email" />
 
       <label for="password">Hasło</label>
       <input type="password" name="password" id="password" />
-      
+
       <button type="submit">Zaloguj się</button>
     </form>
   </body>
 </html>
+<!-- enkodowanie żeby przesłać pliki nazywamy Content-Type multipart/form-data (w headers np. w postman). wcześniej robiliśmy Content-Type application/json  -->
+<!-- teraz w app.js trzeba zmienić, bo często dajemy app.use(express.json()) -->
+<!-- Możemy robić wszystko sami albo możemy użyć multera () -->
